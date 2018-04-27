@@ -14,4 +14,5 @@ end
 
 get '/mine' do
  b.mining.to_s
+
 end

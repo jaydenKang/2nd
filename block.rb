@@ -19,7 +19,7 @@ class Blockchain
 		end while hashed[0..3] != "0000" #hashed 값의 첫 0-3사이의 값이 0000 일때까지
 
 			block = {
-			"index" => @chain.size + 1, "time" => Time.now, "nonce" => nonce
+			"index" => @chain.size + 1, "time" => Time.now, "nonce" => nonce, "previous_address" => Digest::SHA256.hexdigest(last_block.to_s)
 			#chain.size 에서 +1을 추가 , to_i 는 초
 			}
 
@@ -28,6 +28,12 @@ class Blockchain
 		#history.size
 
 	end
+
+
+	def last_block
+		@chain[-1]
+	end
+
 
 	def all_chains
 		@chain # @chain 출력
