@@ -8,7 +8,15 @@ b = Blockchain.new
 
 
 get '/' do
- b.all_chains.to_s
+
+ message = ""
+
+ b.all_chains.each do |a|
+ message << a['index'].to_s + "<br>" 
+ end
+
+ message #출력
+
 end
 
 
