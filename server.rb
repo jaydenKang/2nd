@@ -12,7 +12,11 @@ get '/' do
  message = ""
 
  b.all_chains.each do |a|
- message << a['index'].to_s + "<br>" 
+ message << "번호는 : " + a['index'].to_s + "<br>" 
+ message << "nonce는 : " + a['nonce'].to_s + "<br>" 
+ message << "시간은 : " + a['time'].to_s + "<br>" 
+ message << "앞주소는 : " + a['previous_address'].to_s + "<br>" 
+ message << "<hr>"
  end
 
  message #출력
