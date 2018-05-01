@@ -12,7 +12,10 @@ class Blockchain
 
 		@trans << trans #거래할때마다 거래정보가 trans에 저장.
 
-		"다음 블럭에 쓰여집니다." + (@chain.length + 1).to_s
+		"다음 블럭에 쓰여집니다." + (@chain.length + 1).to_s #숫자를 문자로 바꿈.
+
+
+
 	end
 
 
@@ -29,10 +32,13 @@ class Blockchain
 		end while hashed[0..3] != "0000" # hashed 첫 0-3사이의 값이 0000 이 되면, 아래를 실행
 
 			block = {
-			"index" => @chain.size + 1, "time" => Time.now, "nonce" => nonce, "previous_address" => Digest::SHA256.hexdigest(last_block.to_s)
-			#chain.size 에서 +1을 추가 , to_i 는 초
+			"index" => @chain.size + 1, 
+			"time" => Time.now, 
+			"nonce" => nonce, 
+			"previous_address" => Digest::SHA256.hexdigest(last_block.to_s), 
+			"transactions" => @trans
 			}
-
+			@trans = [] #새로운 배열을 할당.
 			@chain << block
 
 		#history.size

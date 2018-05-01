@@ -18,6 +18,7 @@ get '/' do
  message << "시간은 : " + a['time'].to_s + "<br>" 
  message << "앞 주소는 : " + a['previous_address'].to_s + "<br>" 
  message << "내 주소는 : " + Digest::SHA256.hexdigest(a.to_s) + "<br>" 
+ message << "거래정보 : " + a['transactions'].to_s + "<br>"
  message << "<hr>"
  end
 
@@ -29,7 +30,6 @@ end
 
 get '/mine' do
  b.mining.to_s
-
 end
 
 
