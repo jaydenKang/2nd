@@ -7,6 +7,7 @@ b = Blockchain.new
 
 
 
+
 get '/' do
 
  message = "<center>"
@@ -30,3 +31,6 @@ get '/mine' do
  b.mining.to_s
 
 end
+
+
+
