@@ -33,4 +33,8 @@ get '/mine' do
 end
 
 
+get '/trans' do
+ b.make_a_trans(params["sender"], params["recv"], params["amount"])
+end
+
 

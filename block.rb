@@ -2,7 +2,19 @@ class Blockchain
 
 	def initialize
 		@chain = []
+		@trans = []
 	end
+
+	def make_a_trans(s,r,a)
+		trans = { 
+			"sender" => s, "recv" => r, "amount" => a 
+		}
+
+		@trans << trans #거래할때마다 거래정보가 trans에 저장.
+
+		"다음 블럭에 쓰여집니다." + (@chain.length + 1).to_s
+	end
+
 
 
 	def mining
