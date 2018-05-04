@@ -7,6 +7,39 @@ b = Blockchain.new
 
 
 
+get '/add_node' do #port를 변수화해서 저장.
+	port = params["port"]
+	b.add_port(port) 
+end
+
+
+get '/recv_chain' do
+
+	rev_chain = params["chain"]
+	extracted = JSON.parse(rev_chain)
+	b.add_block(extracted)
+
+end
+
+
+
+get '/all_node' do
+	b.all_node.to_s
+end
+
+
+
+get '/number_of_blocks' do
+	b.all_chains.size.to_s
+end
+
+
+get '/ask' do
+	b.ask_block.to_s
+end
+
+
+
 
 get '/' do
 
@@ -43,5 +76,5 @@ get '/new_wallet' do
 end
 
 get '/wallet_list' do
-	b.wallet_list.to_s
+	b.wallet_list.to_s 
 end

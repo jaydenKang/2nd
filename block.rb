@@ -1,4 +1,6 @@
 require 'securerandom'
+require 'httparty'
+require 'json'
 
 
 class Blockchain
@@ -6,8 +8,47 @@ class Blockchain
 	def initialize
 		@chain = []
 		@trans = []
-		@wallet = {}
+		@wallet = {} #데이터셋을 들고있어야하기 때문에 []를 쓰지않음
+		@node = []
 	end
+
+
+
+
+
+	def add_port(port)
+		@node << port
+	end
+
+
+
+
+	def all_node
+		@node
+	end
+
+
+	def ask_block
+		@node.each do |n| #4567, 4568, 4569
+			n_block = HTTParty.get("http://localhost:"+n+"/number_of_blocks").body
+			if @chain.length < n_block.to_i
+				#내 블럭 정보를 모두 JSON 으로 만들고 그 정보를 상대에게 던진다.
+			   jsoned_chain = @chain.to_json
+			   full_chain = HTTParty.get("http://localhost:"+n+"/recv_chain?chain="+jsoned_chain)
+			   @chain = JSON.parse(full_chain)
+			end
+		end
+	end
+
+
+	def add_block(block)
+		block.each do |b|
+			@chain << b
+		end
+		@chain.to_json
+	end
+
+
 
 
 	def wallet_list
