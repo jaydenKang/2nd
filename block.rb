@@ -1,21 +1,49 @@
+require 'securerandom'
+
+
 class Blockchain
 
 	def initialize
 		@chain = []
 		@trans = []
+		@wallet = {}
+	end
+
+
+	def wallet_list
+	@wallet #지갑주소 리스트 출력
+	end
+
+
+	def make_a_wallet
+		address = SecureRandom.uuid.gsub("-", "")
+		@wallet[address] = 100 #유니크한 지갑주소 만들고 100코인 넣어줌.
+		@wallet
 	end
 
 	def make_a_trans(s,r,a)
+
+
+		if @wallet[s].nil?
+			"없는 지갑입니다."
+		elsif @wallet[r].nil?
+			"없는 지갑입니다."
+		elsif @wallet[s].to_f < a.to_f #보낸사람의 잔액wallet[s]이 보내려는 금액a.to_f보다 작으면 "돈이 부족합니다" 출력.
+			"돈이 부족합니다"
+		else
+
+		@wallet[s] = @wallet[s] - a.to_f
+		@wallet[r] = @wallet[r] + a.to_f
+
+
 		trans = { 
 			"sender" => s, "recv" => r, "amount" => a 
 		}
-
 		@trans << trans #거래할때마다 거래정보가 trans에 저장.
 
 		"다음 블럭에 쓰여집니다." + (@chain.length + 1).to_s #숫자를 문자로 바꿈.
 
-
-
+		end
 	end
 
 
